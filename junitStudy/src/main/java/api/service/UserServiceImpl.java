@@ -1,7 +1,7 @@
 package api.service;
 
 import api.domain.entity.User;
-import api.domain.repository.userRepository;
+import api.domain.repository.UserRepository;
 import api.dto.UserReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,12 +14,18 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private final userRepository userRepository;
+    private final UserRepository userRepository;
 
     @Override
-    public Long insertUser(UserReq req) {
-        //return userRepository.save(req.toEntity()).getUserNumber();
-        User user=User.builder().name(req.getName()).password(req.getPassword()).build();
+    public Long insertUser(UserReq req)throws Exception {
+        //중복 조회
+        Optional<?> findUser=userRepository.findByName(req.getName());
+
+        if(findUser.isPresent()){
+            throw new IllegalAccessException("이미 중복된 유저입니다.");
+        }
+
+        User user=User.builder().userNumber(1L).name(req.getName()).password(req.getPassword()).build();
         return userRepository.save(user).getUserNumber();
     }
 

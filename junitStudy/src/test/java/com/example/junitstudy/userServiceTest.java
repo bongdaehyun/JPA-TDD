@@ -1,15 +1,18 @@
 package com.example.junitstudy;
 
 import api.domain.entity.User;
-import api.domain.repository.userRepository;
+import api.domain.repository.UserRepository;
 import api.dto.UserReq;
 
 import api.service.UserService;
 
+import api.service.UserServiceImpl;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.util.ReflectionTestUtils;
 
 
 import java.util.Optional;
@@ -22,30 +25,35 @@ import static org.mockito.BDDMockito.given;
 public class userServiceTest {
 
 //참고 https://galid1.tistory.com/772
-    @Mock
-    private UserService userService;
-    @Mock
-    private userRepository userRepository;
+    @InjectMocks //  @Mock(또는 @Spy) 주석으로 만든 모형을 이 인스턴스에 삽입
+    private UserServiceImpl userService;
+
+    @Mock //가짜 객체
+    private UserRepository userRepository;
 
 
     @Test
-    public void createUser(){
+    public void createUser() throws Exception{
 
         //given
         UserReq req= UserReq.builder().name("홍길동").password("1234").build();
-        Long fakeId=1l;
         User user=req.toEntity();
-        assertNotNull(userService);
+
+        Long fakeId=1l;
+        ReflectionTestUtils.setField(user,"userNumber",fakeId);
+
         //mocking
-        given(userService.insertUser(req)).willReturn(1L);
-        given(userService.findUser(any())).willReturn(Optional.ofNullable(user));
+        given(userRepository.save(any())).willReturn(user);
+        given(userRepository.findById(fakeId)).willReturn(Optional.ofNullable(user));
+
         //when
         Long userid=userService.insertUser(req);
 
         //then
-        User findUser=userService.findUser(userid).get();
+        User findUser=userRepository.findById(userid).get();
 
-        assertEquals(req.getName(),findUser.getName());
-        assertEquals(req.getPassword(),findUser.getPassword());
+        assertEquals(user.getUserNumber(),findUser.getUserNumber());
+        assertEquals(user.getName(),findUser.getName());
+        assertEquals(user.getPassword(),findUser.getPassword());
     }
 }
