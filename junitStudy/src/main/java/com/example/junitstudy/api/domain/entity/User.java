@@ -1,4 +1,4 @@
-package api.domain.entity;
+package com.example.junitstudy.api.domain.entity;
 
 import lombok.Builder;
 import lombok.Getter;

@@ -1,12 +1,10 @@
-package com.example.junitstudy;
+package com.example.junitstudy.Service;
 
-import api.domain.entity.User;
-import api.domain.repository.UserRepository;
-import api.dto.UserReq;
+import com.example.junitstudy.api.domain.entity.User;
+import com.example.junitstudy.api.domain.repository.UserRepository;
+import com.example.junitstudy.api.dto.UserReq;
 
-import api.service.UserService;
-
-import api.service.UserServiceImpl;
+import com.example.junitstudy.api.service.UserServiceImpl;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

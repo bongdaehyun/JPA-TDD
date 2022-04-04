@@ -1,7 +1,7 @@
-package api.service;
+package com.example.junitstudy.api.service;
 
-import api.domain.entity.User;
-import api.dto.UserReq;
+import com.example.junitstudy.api.domain.entity.User;
+import com.example.junitstudy.api.dto.UserReq;
 
 import java.util.Optional;
 

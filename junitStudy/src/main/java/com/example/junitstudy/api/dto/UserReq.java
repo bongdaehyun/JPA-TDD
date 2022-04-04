@@ -1,6 +1,6 @@
-package api.dto;
+package com.example.junitstudy.api.dto;
 
-import api.domain.entity.User;
+import com.example.junitstudy.api.domain.entity.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

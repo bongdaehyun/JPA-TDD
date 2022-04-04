@@ -1,6 +1,6 @@
-package api.domain.repository;
+package com.example.junitstudy.api.domain.repository;
 
-import api.domain.entity.User;
+import com.example.junitstudy.api.domain.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

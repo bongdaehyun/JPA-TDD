@@ -1,8 +1,8 @@
-package api.service;
+package com.example.junitstudy.api.service;
 
-import api.domain.entity.User;
-import api.domain.repository.UserRepository;
-import api.dto.UserReq;
+import com.example.junitstudy.api.domain.entity.User;
+import com.example.junitstudy.api.domain.repository.UserRepository;
+import com.example.junitstudy.api.dto.UserReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
