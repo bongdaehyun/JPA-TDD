@@ -2,11 +2,14 @@ package com.example.junitstudy.api.service;
 
 import com.example.junitstudy.api.domain.entity.User;
 import com.example.junitstudy.api.domain.repository.UserRepository;
+import com.example.junitstudy.api.dto.UserRep;
 import com.example.junitstudy.api.dto.UserReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service("userService")
@@ -32,6 +35,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> findUser(Long id) {
         return userRepository.findById(id);
+    }
+
+    @Override
+    public List<UserRep> findAllUser() {
+        return makeList(userRepository.findAll());
+    }
+
+    private List<UserRep> makeList(List<User> list){
+        List<UserRep> result=new ArrayList<>();
+
+        for(User user:list){
+            result.add(new UserRep(user.getName(), user.getPassword()));
+        }
+        return result;
     }
 
 }

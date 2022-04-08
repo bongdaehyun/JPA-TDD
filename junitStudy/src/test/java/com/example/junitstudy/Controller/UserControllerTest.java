@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -51,6 +52,27 @@ class UserControllerTest {
                         .content(mapper.writeValueAsString(userReq))
                         .contentType(APPLICATION_JSON)
                         .accept(APPLICATION_JSON))
+                .andDo(print())
+                //then
+                .andExpect(status().isCreated());
+
+    }
+    @Test
+    @DisplayName("유저 생성 컨트롤러 테스트")
+    public void retrieve() throws Exception{
+
+        //given
+
+        given(userService.insertUser(any(UserReq.class))).willReturn(
+                1L
+        );
+
+        //when
+        mvc.perform(
+                        post("/api/create")
+                                .content(mapper.writeValueAsString(userReq))
+                                .contentType(APPLICATION_JSON)
+                                .accept(APPLICATION_JSON))
                 .andDo(print())
                 //then
                 .andExpect(status().isCreated());
