@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -32,6 +33,13 @@ public class UserController {
         List<UserRep> list=userService.findAllUser();
 
         return ResponseEntity.ok().body(list);
+    }
+
+    @GetMapping("/retrieve/{userId}")
+    public ResponseEntity<?> retrieveUser(@PathVariable long userId ) throws Exception {
+        UserRep user = userService.findUser(userId);
+
+        return ResponseEntity.status(200).body(user);
     }
 
 }

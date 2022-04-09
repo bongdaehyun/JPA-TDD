@@ -7,6 +7,7 @@ import com.example.junitstudy.api.dto.UserReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,8 +34,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findUser(Long id) {
-        return userRepository.findById(id);
+    public UserRep findUser(Long id) {
+        Optional<User> user=userRepository.findById(id);
+        return new UserRep(user.get().getName(),user.get().getPassword());
     }
 
     @Override

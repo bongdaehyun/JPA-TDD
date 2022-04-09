@@ -83,4 +83,24 @@ public class userServiceTest {
         assertEquals(user.getName(),userList.get(0).getName());
         assertEquals(user1.getName(),userList.get(1).getName());
     }
+
+    @Test
+    @DisplayName("조건에 맞는 유저 조회")
+    public void retrieveUser() {
+        //given
+        UserReq req= UserReq.builder().name("홍길동").password("1234").build();
+        User user=req.toEntity();
+        Long fakeId=1l;
+        ReflectionTestUtils.setField(user,"userNumber",fakeId);
+
+        given(userRepository.findById(any())).willReturn(Optional.of(user));
+
+        //when
+        UserRep finduser = userService.findUser(1L);
+
+        //then
+        assertEquals(user.getName(),finduser.getName());
+        assertEquals(user.getPassword(),finduser.getPassword());
+
+    }
 }

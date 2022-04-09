@@ -11,7 +11,7 @@ public interface UserService {
 
     Long insertUser(UserReq req)throws Exception;
 
-    Optional<User> findUser(Long id);
+    UserRep findUser(Long id);
 
     List<UserRep> findAllUser();
 }
