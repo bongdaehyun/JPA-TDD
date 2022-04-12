@@ -22,6 +22,7 @@ import java.util.Optional;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.times;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -59,6 +60,9 @@ class UserControllerTest {
                 //then
                 .andExpect(status().isCreated());
 
+        //then == verify
+        then(userService).should(times(1)).insertUser(any(UserReq.class));
+
     }
     @Test
     @DisplayName("모든 유저 조회 컨트롤러 테스트")
@@ -76,6 +80,9 @@ class UserControllerTest {
                 .andDo(print())
                 //then
                 .andExpect(status().isOk());
+
+        //then == verify
+        then(userService).should(times(1)).findAllUser();
     }
     @Test
     @DisplayName("유저 조회 컨트롤러 테스트")
@@ -95,5 +102,9 @@ class UserControllerTest {
                 .andExpect(jsonPath("$.name").value("홍길동"))
                 .andExpect(jsonPath("$.password").value("1234"))
                 .andExpect(status().isOk());
+
+        //then == verify
+        then(userService).should().findUser(1L);
+
     }
 }
